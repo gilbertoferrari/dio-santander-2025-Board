@@ -4,10 +4,10 @@
 
 ```mermaid
 classDiagram
-    BoardEntity <|--|> BoardColumnEntity
-    BoardColumnEntity <|--|> CardEntity
-    CardEntity <|--|> BlockEntity
-    BoardColumnKindEnum <|--|> BoardColumnEntity
+    BoardEntity  "1" <|--|> "n" BoardColumnEntity
+    BoardColumnEntity  "1" <|--|> "n" CardEntity
+    CardEntity  "1"<|--|> "n" BlockEntity
+    BoardColumnKindEnum  "1" <|--|>  "1" BoardColumnEntity
     class BoardEntity {
         - Long id
         - String name
