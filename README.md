@@ -4,23 +4,10 @@
 
 ```mermaid
 classDiagram
-    class BlockEntity {
-        - Long id
-        - OffsetDateTime blockedAt
-        - String blockReason
-        - OffsetDateTime unblockedAt
-        - String unblockReason
-    }
-
-    class BoardColumnKindEnum {
-        <<enum>>
-        INITIAL
-        FINAL
-        CANCEL
-        PENDING
-        + static BoardColumnKindEnum findByName(String name)
-    }
-
+    BoardEntity <|--|> BoardColumnEntity
+    BoardColumnEntity <|--|> CardEntity
+    CardEntity <|--|> BlockEntity
+    BoardColumnKindEnum <|--|> BoardColumnEntity
     class BoardEntity {
         - Long id
         - String name
@@ -45,10 +32,20 @@ classDiagram
         - String description
         - BoardColumnEntity boardColumn
     }
+    class BlockEntity {
+        - Long id
+        - OffsetDateTime blockedAt
+        - String blockReason
+        - OffsetDateTime unblockedAt
+        - String unblockReason
+    }
 
-    BoardEntity "1" o-- "*" BoardColumnEntity : boardColumns
-    BoardColumnEntity "1" o-- "*" CardEntity : cards
-    BoardColumnEntity "1" --> "1" BoardEntity : board
-    CardEntity "1" --> "1" BoardColumnEntity : boardColumn
-    BoardColumnEntity "1" --> "1" BoardColumnKindEnum : kind
+    class BoardColumnKindEnum {
+        <<enum>>
+        INITIAL
+        FINAL
+        CANCEL
+        PENDING
+        + static BoardColumnKindEnum findByName(String name)
+    }
 ```
